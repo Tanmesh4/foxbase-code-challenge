@@ -33,7 +33,6 @@ footer {
     background-color: theme('colors.background');
     border-top: 2px solid theme('colors.dark');
     width: 100%;
-    position: sticky;
     bottom: 0;
 }
 </style>  

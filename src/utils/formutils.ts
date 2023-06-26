@@ -1,8 +1,14 @@
 import { pages } from "@/data/questions";
-
+import {
+  type ICreateFormData,
+  type IQuestionsData,
+} from "../interface/questionsTypings";
 // Function to submit form data using GraphQL mutation
-export const submitFormData = async (input: any, addFormData: any) => {
-  console.log("The input is: ", input);
+export const submitFormData = async (
+  input: ICreateFormData,
+  addFormData: any
+) => {
+  console.log("The input is: ", input, addFormData);
   try {
     await addFormData.mutate({
       input: {
@@ -21,10 +27,10 @@ export const submitFormData = async (input: any, addFormData: any) => {
 };
 
 // Function to handle data transformations
-export const handleData = (data: any) => {
+export const handleData = (data: ICreateFormData): ICreateFormData => {
   if (data.opacityStrength) {
     const value = parseInt(data.opacityStrength);
-    const opacityMap: any = {
+    const opacityMap: { [key: number]: string } = {
       0: "<95",
       1: "95",
       2: "98",
@@ -46,13 +52,12 @@ export const handleData = (data: any) => {
 
 // Function to compute the next page ID
 // Function to compute the next page ID
-export const getNextPageId = (currentPage: any, formData: any) => {
+export const getNextPageId = (currentPage: any, formData: ICreateFormData) => {
   const nextPageId = currentPage.nextPage;
   if (nextPageId && currentPage.conditionalNextPages) {
     const conditionalNextPages = currentPage.conditionalNextPages;
     const inputId = currentPage.inputs[0].id;
     const selectedOption = formData[inputId];
-
     if (
       conditionalNextPages.hasOwnProperty(inputId) &&
       conditionalNextPages[inputId].hasOwnProperty(selectedOption)
@@ -64,6 +69,6 @@ export const getNextPageId = (currentPage: any, formData: any) => {
 };
 
 // Function to get the page index based on the page ID
-export const getPageIndex = (pageId: any) => {
+export const getPageIndex = (pageId: string) => {
   return pages.findIndex((page) => page.id === pageId);
 };

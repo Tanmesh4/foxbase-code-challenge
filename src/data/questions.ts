@@ -1,6 +1,6 @@
 export const pages = [
   {
-    id: 1,
+    id: "1",
     title: "In which area do you want to apply the color?",
     inputs: [
       {
@@ -25,10 +25,10 @@ export const pages = [
         ],
       },
     ],
-    nextPage: 2,
+    nextPage: "2",
   },
   {
-    id: 2,
+    id: "2",
     title: "On what surface should the paint be applied?",
     inputs: [
       {
@@ -65,10 +65,10 @@ export const pages = [
         ],
       },
     ],
-    nextPage: 3,
+    nextPage: "3",
   },
   {
-    id: 3,
+    id: "3",
     title: "Do you know about the opacity?",
     inputs: [
       {
@@ -89,7 +89,7 @@ export const pages = [
         ],
       },
     ],
-    nextPage: 4,
+    nextPage: "4",
     conditionalNextPages: {
       opacityKnowledge: {
         Yes: "4-1",
@@ -130,7 +130,7 @@ export const pages = [
         ],
       },
     ],
-    nextPage: 5,
+    nextPage: "5",
   },
   {
     id: "4-2",
@@ -158,10 +158,10 @@ export const pages = [
         ],
       },
     ],
-    nextPage: 5,
+    nextPage: "5",
   },
   {
-    id: 5,
+    id: "5",
     title: "Choose the hue you want",
     inputs: [
       {

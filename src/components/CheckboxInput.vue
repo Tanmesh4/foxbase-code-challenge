@@ -17,17 +17,13 @@
 </template>
   
 <script lang="ts">
+import { IInputData } from "../interface/questionsTypings";
 import ImageComp from "./ImageComp.vue";
 
 export default {
     props: {
         input: {
-            type: Object as () => {
-                requireImage: boolean;
-                options: { text: string; imageUrl: string }[];
-                type: string;
-                id: string;
-            },
+            type: Object as () => IInputData,
             required: true,
         },
         formData: {

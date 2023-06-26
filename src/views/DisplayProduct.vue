@@ -50,13 +50,13 @@ export default {
             if (scoringMatrixData && latestColorChoice) {
 
                 //get the scores from all data 
-                const scores = scoringUtils.getScores(scoringMatrixData);
+                const scores: number[][] = scoringUtils.getScores(scoringMatrixData);
 
                 //get the weights of user selection. Deliberately done to showcase use of graphql getQuery
-                const weights = scoringUtils.calculateWeights(latestColorChoice.getLatestChoice[0]);
+                const weights: number[] = scoringUtils.calculateWeights(latestColorChoice.getLatestChoice[0]);
 
                 //use the scoring logic and return the score of recommended product
-                const recommendedProduct = scoringUtils.getRecommendedProduct(scores, weights);
+                const recommendedProduct: number[] = scoringUtils.getRecommendedProduct(scores, weights);
 
                 //from the score get the ID and fetch the data of recommended product. Done to showcase use of graphql
                 recommendedProductId.value = scoringUtils.getIdOfRecommendedProduct(recommendedProduct, scoringMatrixData);

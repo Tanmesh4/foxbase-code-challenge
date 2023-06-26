@@ -59,6 +59,7 @@ import {
 } from "../utils/formutils";
 import { addFormData } from '../data/queries';
 import Loading from '../components/Loading.vue';
+import { ICreateFormData } from "../interface/questionsTypings";
 
 export default {
     components: {
@@ -67,6 +68,7 @@ export default {
         RangeInput,
         Loading
     },
+
     computed: {
         progressPercentage() {
             return ((this.currentPageIndex + 1) / pages.length) * 100 + "%";
@@ -77,10 +79,26 @@ export default {
         },
     },
     setup() {
+
         const addFormDataQuery = useMutation(addFormData);
-        const formData = ref({});
-        const currentPageIndex = ref(0);
-        const isLoading = ref(false);
+        const formData = ref<{
+            colorLocation: string;
+            underground: string[];
+            opacityKnowledge: boolean | string;
+            hue: string;
+            opacityStrength: string | null;
+            palette: string | null;
+            [key: string]: any;
+        }>({
+            colorLocation: "",
+            underground: [],
+            opacityKnowledge: "",
+            hue: "",
+            opacityStrength: null,
+            palette: null
+        });
+        const currentPageIndex = ref<number>(0);
+        const isLoading = ref<boolean>(false);
         const router = useRouter();
 
         const currentPage = computed(() => {
@@ -117,32 +135,10 @@ export default {
             }
         };
 
-        const handleRadioSelection = (inputId, option) => {
-            formData.value[inputId] = option;
-        };
-
-        const isCheckboxSelected = (inputId, option) => {
-            return Array.isArray(formData.value[inputId]) && formData.value[inputId].includes(option);
-        };
-
-        const handleCheckboxChange = (inputId, option) => {
-            if (!Array.isArray(formData.value[inputId])) {
-                formData.value[inputId] = [];
-            }
-            const selectedOptions = formData.value[inputId];
-            const optionIndex = selectedOptions.indexOf(option);
-            if (optionIndex > -1) {
-                selectedOptions.splice(optionIndex, 1);
-            } else {
-                selectedOptions.push(option);
-            }
-        };
-
         const goBack = () => {
             if (currentPageIndex.value > 0) {
                 const currentPage = pages[currentPageIndex.value];
                 const previousPageIndex = currentPageIndex.value - 1;
-                console.log("check id: ", currentPage.id);
                 if (currentPage.id.toString().includes("-")) {
                     const [mainPageId] = currentPage.id.toString().split("-");
                     currentPageIndex.value = parseInt(mainPageId) - 2;
@@ -156,16 +152,14 @@ export default {
             formData,
             currentPage,
             isNextButtonDisabled,
-            submitForm,
-            handleRadioSelection,
-            handleCheckboxChange,
-            isCheckboxSelected,
-            goBack,
             currentPageIndex,
-            isLoading
+            isLoading,
+
+            submitForm,
+            goBack,
         };
     },
 };
 </script>
   
-<style scoped></style>
+<style scoped></style>../interface/questionsTypings

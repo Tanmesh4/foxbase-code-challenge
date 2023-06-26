@@ -1,10 +1,11 @@
 import { pages } from "../data/questions";
+import {
+  type ICreateFormData,
+  type IReqDisplayProduct,
+} from "../interface/questionsTypings";
 
 export default {
-  calculateWeights: (lastchoice: {
-    [x: string]: any;
-    hasOwnProperty: (arg0: string) => any;
-  }): number[] => {
+  calculateWeights: (lastchoice: ICreateFormData): number[] => {
     const weights: number[] = [];
     for (const page of pages) {
       for (const input of page.inputs) {
@@ -44,13 +45,15 @@ export default {
     return weights;
   },
 
-  getScores: (scoringMatrixData: { getDisplayProduct: any[] }): number[][] => {
+  getScores: (scoringMatrixData: {
+    getDisplayProduct: IReqDisplayProduct[];
+  }): number[][] => {
     return scoringMatrixData.getDisplayProduct.map(
-      (item: { scoringMatrix: any }) => item.scoringMatrix
+      (item: { scoringMatrix: Array<number> }) => item.scoringMatrix
     );
   },
 
-  getRecommendedProduct: (scores: number[][], weights: number[]) => {
+  getRecommendedProduct: (scores: number[][], weights: number[]): number[] => {
     // Calculate overall scores for each product
     const overallScores: number[] = scores.map((productScores) =>
       productScores.reduce(
@@ -59,27 +62,24 @@ export default {
         0
       )
     );
-
     // Sort the products based on their overall scores in descending order
     const sortedIndices: number[] = overallScores
       .map((_, index) => index)
       .sort((a, b) => overallScores[b] - overallScores[a]);
-
     // Display the recommended products to the user
     const recommendedProduct = scores[sortedIndices[0]];
     return recommendedProduct;
   },
 
   getIdOfRecommendedProduct: (
-    recommendedProduct: { [x: string]: any },
-    data: { getDisplayProduct: any[] }
-  ) => {
+    recommendedProduct: number[],
+    data: { getDisplayProduct: IReqDisplayProduct[] }
+  ): number => {
     let recommendedProductId: number = 0;
     data.getDisplayProduct.forEach((product) => {
       if (
         product.scoringMatrix.every(
-          (score: any, index: string | number) =>
-            score === recommendedProduct[index]
+          (score: number, index: number) => score === recommendedProduct[index]
         )
       ) {
         recommendedProductId = product.id;

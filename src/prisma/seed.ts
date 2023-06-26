@@ -13,12 +13,12 @@ async function main() {
   await prisma.displayProducts.createMany({
     data: products,
   });
+  console.log(`Data added.`);
 
   // const deleteUsers = await prisma.colorChoice.deleteMany({});
   // const deleteMy = await prisma.displayProducts.deleteMany({});
-
-  console.log(`Data added.`);
   // console.log(`Data deleld.`, deleteUsers, deleteMy);
+
   console.log(`Seeding finished.`);
 }
 

@@ -25,22 +25,23 @@
 </template>
   
 <script lang="ts">
+import { IInputData } from "../interface/questionsTypings";
 import ImageComp from "./ImageComp.vue";
 
 export default {
     props: {
-        input: Object,
+        input: Object as () => IInputData,
         formData: Object
     },
     components: {
         ImageComp
     },
     methods: {
-        isChecked(option) {
-            return this.formData[this.input.id] === option;
+        isChecked(option: string) {
+            return this.formData![this.input!.id] === option;
         },
-        handleRadioSelection(option) {
-            this.formData[this.input.id] = option;
+        handleRadioSelection(option: string) {
+            this.formData![this.input!.id] = option;
         }
     }
 };
