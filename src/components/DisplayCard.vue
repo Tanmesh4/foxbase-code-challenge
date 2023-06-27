@@ -1,5 +1,4 @@
 <template>
-    <h1 class="text-3xl font-bold px-4 pt-4 mb-4">Recommended Product</h1>
     <div class="overflow-hidden mb-4">
         <h1 class="text-2xl font-bold px-4 pt-4 m-4">{{ product.productName }}</h1>
         <img :src="product.imageUrl" :alt="product.productName" class="image-card" />
@@ -8,7 +7,8 @@
             <div class="mt-4 mb-4">
                 <h3 class="text-lg font-semibold">Benefits:</h3>
                 <ul class="list-disc pl-6 mt-2 text-gray-700">
-                    <li v-for="benefit in product.benefits.split(',')" :key="benefit" class="mb-1">{{ benefit.trim() }}</li>
+                    <li v-for="benefit in product?.benefits?.split(',') || []" :key="benefit" class="mb-1">{{
+                        benefit?.trim() }}</li>
                 </ul>
             </div>
         </div>

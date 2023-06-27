@@ -37,9 +37,9 @@ export const getLatestColorChoice = gql`
   }
 `;
 
-export const getProduct = gql`
-  query getSpecificProduct($input: Int!) {
-    getSpecificProduct(id: $input) {
+export const getProducts = gql`
+  query getSpecificProducts($input: [Int!]!) {
+    getSpecificProducts(ids: $input) {
       id
       productName
       shortDescription

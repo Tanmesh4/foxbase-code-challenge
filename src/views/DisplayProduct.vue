@@ -4,9 +4,16 @@
             <Loading />
         </div>
         <div v-else>
-            <DisplayCard :product="product" />
+            <h1 class="text-3xl font-bold px-4 pt-4 mb-4">Recommended Product</h1>
+            <template v-if="product && product.length > 0">
+                <div class="flex flex-wrap">
+                    <DisplayCard v-for="(item, index) in product" :key="item.id" :product="item"
+                        :is-first-product="index === 0"
+                        :class="[index === 0 ? 'mr-20 border-2 border-hover rounded p-4' : 'mr-20']" />
+                </div>
+            </template>
             <div class="mt-4">
-                <button @click="redirectToHome" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+                <button @click="redirectToHome" class="bg-primary text-white py-2 px-4 rounded hover:bg-hover">
                     Go to Home
                 </button>
             </div>
@@ -17,7 +24,7 @@
 <script lang="ts">
 import { useQuery } from '@vue/apollo-composable';
 import DisplayCard from '../components/DisplayCard.vue';
-import { getDataForScoringMatrix, getLatestColorChoice, getProduct } from '../data/queries';
+import { getDataForScoringMatrix, getLatestColorChoice, getProducts } from '../data/queries';
 import { ref, watch } from 'vue';
 import scoringUtils from '../utils/matrixCalculation';
 import { useRouter } from 'vue-router';
@@ -30,20 +37,22 @@ export default {
     },
 
     setup() {
-        let product = ref({
+        let product = ref([{
+            id: 0,
             productName: 'Vibrant Blue',
             shortDescription: 'A bold and lively blue hue',
             benefits: 'Enhances energy, stimulates creativity, and uplifts mood',
             imageUrl: 'https://www.epodex.com/de/wp-content/uploads/2021/07/Latex-paint-epodex-blau-1.jpg',
             scoringMatrix: [0.8, 0.6, 0.2, 0.3, 0.5, 0.7],
-        });
+        }]);
 
-        const recommendedProductId = ref(38);
+        const recommendedProductId = ref<number[]>([19]);
+        const PRODUCTS_TO_SHOW: number = 3;
         const router = useRouter();
 
         const { result: scoringMatrixData, loading: scoringMatrixLoading, error: scoringMatrixError } = useQuery(getDataForScoringMatrix);
         const { result: latestColorChoice, loading: latestColorChoiceLoading, error: latestColorChoiceError } = useQuery(getLatestColorChoice);
-        const { result: recommendedProductData, loading: recommendedProductLoading, error: recommendedProductError } = useQuery(getProduct, { "input": recommendedProductId });
+        const { result: recommendedProductData, loading: recommendedProductLoading, error: recommendedProductError } = useQuery(getProducts, { "input": recommendedProductId });
 
         // Watch for changes in scoringMatrixData and latestColorChoice simultaneously
         watch([scoringMatrixData, latestColorChoice], ([scoringMatrixData, latestColorChoice]) => {
@@ -56,19 +65,31 @@ export default {
                 const weights: number[] = scoringUtils.calculateWeights(latestColorChoice.getLatestChoice[0]);
 
                 //use the scoring logic and return the score of recommended product
-                const recommendedProduct: number[] = scoringUtils.getRecommendedProduct(scores, weights);
+                const recommendedProduct: number[][] = scoringUtils.getRecommendedProduct(scores, weights);
 
                 //from the score get the ID and fetch the data of recommended product. Done to showcase use of graphql
-                recommendedProductId.value = scoringUtils.getIdOfRecommendedProduct(recommendedProduct, scoringMatrixData);
+                const productIds = recommendedProduct
+                    .slice(0, PRODUCTS_TO_SHOW)
+                    .map((product) => scoringUtils.getIdOfRecommendedProduct(product, scoringMatrixData));
+
+                console.log("the array was: ", recommendedProductId.value);
+                recommendedProductId.value = productIds;
+                console.log("the array is: ", recommendedProductId.value);
+
+
             }
         });
 
         //Watch for getting the data of recommended product
         watch([recommendedProductData, recommendedProductId], ([recommendedProductData, recommendedProductId]) => {
-            if (recommendedProductData && recommendedProductId !== 0) {
-                const recommended = recommendedProductData.getSpecificProduct[0];
+            console.log("recommendedProductData:", recommendedProductData);
+            console.log("recommendedProductId:", recommendedProductId);
+
+            if (recommendedProductData && recommendedProductId.length > 0) {
+                console.log("watching recommended product inside if: ", recommendedProductData, recommendedProductId);
+                const recommended = recommendedProductData.getSpecificProducts.slice(0, PRODUCTS_TO_SHOW);
                 product.value = recommended;
-                console.log("recommended product is: ", recommended);
+                console.log("recommended products is: ", recommended);
             }
         });
 

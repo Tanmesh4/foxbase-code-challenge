@@ -71,6 +71,6 @@ export const typeDefs = gql`
     getColorChoice: [colorChoice!]!
     getLatestChoice: [colorChoice!]!
     getDisplayProduct: [DisplayProducts!]!
-    getSpecificProduct(id: Int!): [DisplayProducts!]!
+    getSpecificProducts(ids: [Int!]!): [DisplayProducts!]!
   }
 `;

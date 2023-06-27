@@ -16,16 +16,18 @@ export const resolvers = {
       return [latestChoice];
     },
 
-    getSpecificProduct: (
+    getSpecificProducts: (
       _parent: any,
-      args: { id: number },
+      args: { ids: number[] },
       context: Context
     ) => {
-      const { id } = args;
-      const productDetials = context.prisma.displayProducts.findUnique({
-        where: { id },
-      });
-      return [productDetials];
+      const { ids } = args;
+      console.log("id,s are: ", ids);
+
+      const productDetails = ids.map((id) =>
+        context.prisma.displayProducts.findUnique({ where: { id } })
+      );
+      return productDetails;
     },
 
     getDisplayProduct: (_parent: any, _args: any, context: Context) => {

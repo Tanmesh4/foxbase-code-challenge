@@ -158,9 +158,9 @@ export default {
                     }, 2000);
                 } else {
                     openModal(modalMessageText.somethingWentWrongTitle, modalMessageText.somethingWentWrongMessage, false);
-                    setTimeout(() => {
-                        router.go(0);
-                    }, 2000);
+                    // setTimeout(() => {
+                    //     router.go(0);
+                    // }, 2000);
                 };
                 isLoading.value = false;
             }

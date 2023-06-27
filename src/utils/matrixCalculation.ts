@@ -53,7 +53,10 @@ export default {
     );
   },
 
-  getRecommendedProduct: (scores: number[][], weights: number[]): number[] => {
+  getRecommendedProduct: (
+    scores: number[][],
+    weights: number[]
+  ): number[][] => {
     // Calculate overall scores for each product
     const overallScores: number[] = scores.map((productScores) =>
       productScores.reduce(
@@ -63,12 +66,13 @@ export default {
       )
     );
     // Sort the products based on their overall scores in descending order
-    const sortedIndices: number[] = overallScores
+    const productIndices: number[] = overallScores
       .map((_, index) => index)
       .sort((a, b) => overallScores[b] - overallScores[a]);
-    // Display the recommended products to the user
-    const recommendedProduct = scores[sortedIndices[0]];
-    return recommendedProduct;
+    const recommendedProducts: number[][] = productIndices.map(
+      (index) => scores[index]
+    );
+    return recommendedProducts;
   },
 
   getIdOfRecommendedProduct: (

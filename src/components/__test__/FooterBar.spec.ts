@@ -1,6 +1,7 @@
 import { shallowMount } from "@vue/test-utils";
 import FooterBar from "@/components/FooterBar.vue";
 import { describe, test, expect } from "vitest";
+import footerText from "../../nls/footerText.json";
 
 describe("FooterBar", () => {
   test("renders the component without errors", () => {
@@ -12,20 +13,13 @@ describe("FooterBar", () => {
     const wrapper = shallowMount(FooterBar);
     const address = wrapper.find("div:nth-child(2) p");
 
-    expect(address.text()).toBe("123 Main St, Germany");
+    expect(address.text()).toBe(footerText.Adress);
   });
 
   test('displays the correct "About Us" information', () => {
     const wrapper = shallowMount(FooterBar);
     const aboutUs = wrapper.find("div:nth-child(3) p");
-
-    const expectedText =
-      "Recommendation Specialists is a leading provider of house color recommendations." +
-      " We offer expert advice and personalized recommendations to help homeowners choose" +
-      " the perfect colors for their homes. With our innovative technology and experienced" +
-      " team of specialists, we make the color selection process easy and enjoyable.";
-
-    expect(aboutUs.text()).toBe(expectedText);
+    expect(aboutUs.text()).toBe(footerText.AboutUs);
   });
 
   test("applies the correct styling", () => {
