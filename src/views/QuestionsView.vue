@@ -6,6 +6,8 @@
         </div>
         <div v-else>
             <div class="mt-10">
+                <ModalMessage :title="modalTitle" :message="modalMessage" v-if="showModalMessage"
+                    :is-success="isModalSuccess" />
                 <div class="bg-secondary h-1 rounded">
                     <div class="bg-hover h-full rounded" :style="{ width: progressPercentage }"></div>
                 </div>
@@ -54,13 +56,16 @@ import RangeInput from "../components/RangeInput.vue";
 import fromutils from "../utils/formutils";
 import { addFormData } from '../data/queries';
 import Loading from '../components/Loading.vue';
+import ModalMessage from "../components/ModalMessage.vue";
+import modalMessageText from "../nls/modalMessageText.json";
 
 export default {
     components: {
         RadioInput,
         CheckboxInput,
         RangeInput,
-        Loading
+        Loading,
+        ModalMessage
     },
 
     computed: {
@@ -75,6 +80,12 @@ export default {
     setup() {
 
         const addFormDataQuery = useMutation(addFormData);
+
+        const showModalMessage = ref(false);
+        const modalTitle = ref('');
+        const modalMessage = ref('');
+        const isModalSuccess = ref(false);
+
         const formData = ref<{
             colorLocation: string;
             underground: string[];
@@ -91,8 +102,11 @@ export default {
             opacityStrength: null,
             palette: null
         });
+
         const currentPageIndex = ref<number>(0);
+
         const isLoading = ref<boolean>(false);
+
         const router = useRouter();
 
         const currentPage = computed(() => {
@@ -103,7 +117,7 @@ export default {
             return currentPage.value.inputs.some((input) => {
                 if (input.type === 'radio') {
                     const inputId = input.id;
-                    return formData.value[inputId] === undefined;
+                    return formData.value[inputId] === undefined || formData.value[inputId] === '';
                 } else if (input.type === 'checkbox') {
                     const inputId = input.id;
                     return !Array.isArray(formData.value[inputId]) || formData.value[inputId].length === 0;
@@ -114,6 +128,17 @@ export default {
             });
         });
 
+        const openModal = (title: string, message: string, isSuccess: boolean) => {
+            modalTitle.value = title;
+            modalMessage.value = message;
+            showModalMessage.value = true;
+            isModalSuccess.value = isSuccess;
+        };
+
+        const closeModal = () => {
+            showModalMessage.value = false;
+        };
+
         const submitForm = async () => {
             console.log("Data is:", formData.value);
             const nextPageId = fromutils.getNextPageId(currentPage.value, formData.value);
@@ -123,8 +148,19 @@ export default {
                 isLoading.value = true;
                 console.log("Questionnaire completed!");
                 const data = fromutils.handleData(formData.value);
-                await fromutils.submitFormData(data, addFormDataQuery);
-                router.replace('/products');
+                const result = await fromutils.submitFormData(data, addFormDataQuery);
+
+                if (result) {
+                    openModal(modalMessageText.dataSubmittedTitle, modalMessageText.dataSubmittedMessage, true);
+                    setTimeout(() => {
+                        router.replace('/products');
+                    }, 2000);
+                } else {
+                    openModal(modalMessageText.somethingWentWrongTitle, modalMessageText.somethingWentWrongMessage, false);
+                    setTimeout(() => {
+                        router.go(0);
+                    }, 3000);
+                };
                 isLoading.value = false;
             }
         };
@@ -139,7 +175,13 @@ export default {
             isNextButtonDisabled,
             currentPageIndex,
             isLoading,
+            showModalMessage,
+            modalTitle,
+            modalMessage,
+            isModalSuccess,
 
+            openModal,
+            closeModal,
             submitForm,
             goBack
         };

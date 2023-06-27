@@ -3,7 +3,10 @@ import { type ICreateFormData } from "../interface/dataTypings";
 
 export default {
   // Function to submit form data using GraphQL mutation
-  submitFormData: async (input: ICreateFormData, addFormData: any) => {
+  submitFormData: async (
+    input: ICreateFormData,
+    addFormData: any
+  ): Promise<boolean> => {
     try {
       await addFormData.mutate({
         input: {
@@ -16,8 +19,10 @@ export default {
         },
       });
       console.log("Data added successfully");
+      return true;
     } catch (error) {
       console.error("Error submitting data:", error);
+      return false;
     }
   },
 
