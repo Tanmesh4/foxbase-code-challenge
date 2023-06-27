@@ -1,18 +1,19 @@
+import { ColorLocation, Underground, Palette, HueColor } from "@prisma/client";
 export const colorChoice = [
   {
-    colorLocation: "Outside",
-    underground: ["Wood", "Wallpaper"],
+    colorLocation: ColorLocation.Outside,
+    underground: [Underground.Wood, Underground.Facade],
     opacityKnowledge: true,
-    opacityStrength: "98",
+    opacityStrength: "92",
     palette: null,
-    hue: "Red",
+    hue: HueColor.Red,
   },
   {
-    colorLocation: "Inside",
-    underground: ["Plaster"],
+    colorLocation: ColorLocation.Inside,
+    underground: [Underground.Plaster, Underground.Wallpaper],
     opacityKnowledge: false,
     opacityStrength: null,
-    palette: "Darker",
-    hue: "Blue",
+    palette: Palette.Lighter,
+    hue: HueColor.Blue,
   },
 ];

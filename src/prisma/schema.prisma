@@ -7,16 +7,41 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum ColorLocation {
+  Inside
+  Outside
+}
+
+enum Underground {
+  Wood
+  Facade
+  Wallpaper
+  Plaster
+}
+
+enum Palette {
+  Lighter
+  Darker
+}
+
+enum HueColor {
+  Red
+  Blue
+  Green
+  Yellow
+  White
+}
+
 model ColorChoice {
-  id               Int      @id @default(autoincrement())
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-  colorLocation    String
-  underground      String[]
+  id               Int           @id @default(autoincrement())
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  colorLocation    ColorLocation
+  underground      Underground[]
   opacityKnowledge Boolean
   opacityStrength  String?
-  palette          String?
-  hue              String
+  palette          Palette?
+  hue              HueColor
 }
 
 model DisplayProducts {

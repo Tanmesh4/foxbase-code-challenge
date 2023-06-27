@@ -1,4 +1,5 @@
 import { type Context } from "./context";
+import { ColorLocation, Underground, Palette, HueColor } from "@prisma/client";
 
 export const resolvers = {
   Query: {
@@ -37,12 +38,12 @@ export const resolvers = {
       _parent: any,
       args: {
         input: {
-          colorLocation: string;
-          underground: [string];
+          colorLocation: ColorLocation;
+          underground: [Underground];
           opacityKnowledge: boolean;
-          hue: string;
+          hue: HueColor;
           opacityStrength?: string;
-          palette?: string;
+          palette?: Palette;
         };
       },
       context: Context

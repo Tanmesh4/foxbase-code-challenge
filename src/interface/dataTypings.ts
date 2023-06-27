@@ -1,3 +1,5 @@
+import { ColorLocation, Underground, Palette, HueColor } from "@prisma/client";
+
 export interface IInputData {
   id: string;
   requireImage: boolean;
@@ -9,17 +11,17 @@ export interface IInputData {
 }
 
 export interface ICreateFormData {
-  colorLocation: string;
-  underground: string[];
+  colorLocation: ColorLocation;
+  underground: Underground[];
   opacityKnowledge: boolean | string;
-  hue: string;
+  hue: HueColor;
   opacityStrength: string | null;
-  palette: string | null;
+  palette: Palette | null;
   [key: string]: any;
 }
 
 export interface IReqDisplayProduct {
   __typename: string;
   id: number;
-  scoringMatrix: Array<any>;
+  scoringMatrix: Array<number>;
 }

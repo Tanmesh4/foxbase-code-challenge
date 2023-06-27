@@ -1,13 +1,38 @@
 import { gql } from "graphql-tag";
 
 export const typeDefs = gql`
+  enum ColorLocation {
+    Inside
+    Outside
+  }
+
+  enum Underground {
+    Wood
+    Facade
+    Wallpaper
+    Plaster
+  }
+
+  enum Palette {
+    Lighter
+    Darker
+  }
+
+  enum HueColor {
+    Red
+    Blue
+    Green
+    Yellow
+    White
+  }
+
   input CreateFormData {
-    colorLocation: String!
-    underground: [String]!
+    colorLocation: ColorLocation!
+    underground: [Underground]!
     opacityKnowledge: Boolean!
-    hue: String!
+    hue: HueColor!
     opacityStrength: String
-    palette: String
+    palette: Palette
   }
 
   input CreateDisplayProduct {
@@ -25,12 +50,12 @@ export const typeDefs = gql`
 
   type colorChoice {
     id: Int!
-    colorLocation: String!
-    underground: [String]!
+    colorLocation: ColorLocation!
+    underground: [Underground]!
     opacityKnowledge: Boolean!
     opacityStrength: String
-    palette: String
-    hue: String!
+    palette: Palette
+    hue: HueColor!
   }
 
   type DisplayProducts {

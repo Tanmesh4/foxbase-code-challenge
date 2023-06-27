@@ -58,6 +58,7 @@ import { addFormData } from '../data/queries';
 import Loading from '../components/Loading.vue';
 import ModalMessage from "../components/ModalMessage.vue";
 import modalMessageText from "../nls/modalMessageText.json";
+import { ColorLocation, Underground, Palette, HueColor } from "@prisma/client";
 
 export default {
     components: {
@@ -87,18 +88,18 @@ export default {
         const isModalSuccess = ref(false);
 
         const formData = ref<{
-            colorLocation: string;
-            underground: string[];
+            colorLocation: ColorLocation;
+            underground: Underground[];
             opacityKnowledge: boolean | string;
-            hue: string;
+            hue: HueColor;
             opacityStrength: string | null;
-            palette: string | null;
+            palette: Palette | null;
             [key: string]: any;
         }>({
-            colorLocation: "",
+            colorLocation: ColorLocation.Inside,
             underground: [],
             opacityKnowledge: "",
-            hue: "",
+            hue: HueColor.Blue,
             opacityStrength: null,
             palette: null
         });
