@@ -51,15 +51,9 @@ import { computed, ref } from "vue";
 import RadioInput from "../components/RadioInput.vue";
 import CheckboxInput from "../components/CheckboxInput.vue";
 import RangeInput from "../components/RangeInput.vue";
-import {
-    submitFormData,
-    handleData,
-    getNextPageId,
-    getPageIndex,
-} from "../utils/formutils";
+import fromutils from "../utils/formutils";
 import { addFormData } from '../data/queries';
 import Loading from '../components/Loading.vue';
-import { ICreateFormData } from "../interface/questionsTypings";
 
 export default {
     components: {
@@ -122,31 +116,22 @@ export default {
 
         const submitForm = async () => {
             console.log("Data is:", formData.value);
-            const nextPageId = getNextPageId(currentPage.value, formData.value);
+            const nextPageId = fromutils.getNextPageId(currentPage.value, formData.value);
             if (nextPageId) {
-                currentPageIndex.value = getPageIndex(nextPageId);
+                currentPageIndex.value = fromutils.getPageIndex(nextPageId);
             } else {
                 isLoading.value = true;
                 console.log("Questionnaire completed!");
-                const data = handleData(formData.value);
-                await submitFormData(data, addFormDataQuery);
+                const data = fromutils.handleData(formData.value);
+                await fromutils.submitFormData(data, addFormDataQuery);
                 router.replace('/products');
                 isLoading.value = false;
             }
         };
 
         const goBack = () => {
-            if (currentPageIndex.value > 0) {
-                const currentPage = pages[currentPageIndex.value];
-                const previousPageIndex = currentPageIndex.value - 1;
-                if (currentPage.id.toString().includes("-")) {
-                    const [mainPageId] = currentPage.id.toString().split("-");
-                    currentPageIndex.value = parseInt(mainPageId) - 2;
-                } else {
-                    currentPageIndex.value = previousPageIndex;
-                }
-            }
-        };
+            fromutils.goBackInForm(currentPageIndex);
+        }
 
         return {
             formData,
@@ -156,10 +141,10 @@ export default {
             isLoading,
 
             submitForm,
-            goBack,
+            goBack
         };
     },
 };
 </script>
   
-<style scoped></style>../interface/questionsTypings
+<style scoped></style>

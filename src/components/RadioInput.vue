@@ -25,7 +25,7 @@
 </template>
   
 <script lang="ts">
-import { IInputData } from "../interface/questionsTypings";
+import { type IInputData } from "../interface/dataTypings";
 import ImageComp from "./ImageComp.vue";
 
 export default {
@@ -46,4 +46,3 @@ export default {
     }
 };
 </script>
-  

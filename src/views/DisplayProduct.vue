@@ -78,12 +78,11 @@ export default {
 
         return {
             product,
-            scoringMatrixData,
-            latestColorChoice,
-            redirectToHome,
             scoringMatrixLoading,
             latestColorChoiceLoading,
-            recommendedProductLoading
+            recommendedProductLoading,
+
+            redirectToHome,
         };
     },
 };

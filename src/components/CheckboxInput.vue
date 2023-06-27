@@ -17,7 +17,7 @@
 </template>
   
 <script lang="ts">
-import { IInputData } from "../interface/questionsTypings";
+import { type IInputData } from "../interface/dataTypings";
 import ImageComp from "./ImageComp.vue";
 
 export default {
@@ -35,10 +35,10 @@ export default {
         ImageComp,
     },
     methods: {
-        isChecked(option: { text: string; imageUrl: string }) {
+        isChecked(option: { text: string; imageUrl?: string }) {
             return Array.isArray(this.formData[this.input.id]) && this.formData[this.input.id].includes(option);
         },
-        handleCheckboxChange(option: { text: string; imageUrl: string }) {
+        handleCheckboxChange(option: { text: string; imageUrl?: string }) {
             if (!Array.isArray(this.formData[this.input.id])) {
                 this.formData[this.input.id] = [];
             }
@@ -89,4 +89,4 @@ export default {
     border-color: theme('colors.primary');
 }
 </style>
-  
+  ../interface/dataTypings

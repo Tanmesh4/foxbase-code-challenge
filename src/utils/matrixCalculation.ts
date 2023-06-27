@@ -2,7 +2,7 @@ import { pages } from "../data/questions";
 import {
   type ICreateFormData,
   type IReqDisplayProduct,
-} from "../interface/questionsTypings";
+} from "../interface/dataTypings";
 
 export default {
   calculateWeights: (lastchoice: ICreateFormData): number[] => {

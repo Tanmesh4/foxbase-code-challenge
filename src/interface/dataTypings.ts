@@ -2,15 +2,10 @@ export interface IInputData {
   id: string;
   requireImage: boolean;
   type: string;
-  options:
-    | {
-        text: string;
-        imageUrl?: string;
-      }[]
-    | {
-        text: string;
-        imageUrl: string;
-      }[];
+  options: {
+    text: string;
+    imageUrl?: string;
+  }[];
 }
 
 export interface ICreateFormData {
@@ -21,22 +16,6 @@ export interface ICreateFormData {
   opacityStrength: string | null;
   palette: string | null;
   [key: string]: any;
-}
-
-export interface IQuestionsData {
-  id: string;
-  title: string;
-  inputs: {
-    id: string;
-    requireImage: boolean;
-    type: string;
-    options: {
-      text: string;
-      imageUrl?: string;
-    }[];
-  }[];
-  conditionalNextPages?: string;
-  nextPage: string;
 }
 
 export interface IReqDisplayProduct {

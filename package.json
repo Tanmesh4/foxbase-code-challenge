@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
-    "test": "jest"
+    "test": "vitest --environment jsdom --root src/"
   },
   "dependencies": {
     "@apollo/client": "^3.7.15",
@@ -19,6 +19,8 @@
     "graphql-scalars": "1.22.2",
     "graphql-tag": "^2.12.6",
     "graphql-yoga": "3.9.1",
+    "start-server-and-test": "^2.0.0",
+    "vitest": "^0.32.2",
     "vue": "^3.3.4",
     "vue-router": "^4.2.2"
   },
