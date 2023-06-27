@@ -20,7 +20,7 @@ enum Underground {
 }
 
 enum Palette {
-  Lighter
+  Brighter
   Darker
 }
 

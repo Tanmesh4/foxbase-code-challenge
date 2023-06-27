@@ -14,7 +14,7 @@ export const typeDefs = gql`
   }
 
   enum Palette {
-    Lighter
+    Brighter
     Darker
   }
 

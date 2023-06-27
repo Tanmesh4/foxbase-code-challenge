@@ -13,7 +13,7 @@ export const colorChoice = [
     underground: [Underground.Plaster, Underground.Wallpaper],
     opacityKnowledge: false,
     opacityStrength: null,
-    palette: Palette.Lighter,
+    palette: Palette.Darker,
     hue: HueColor.Blue,
   },
 ];

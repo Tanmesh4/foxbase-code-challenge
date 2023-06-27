@@ -96,7 +96,7 @@ export default {
             palette: Palette | null;
             [key: string]: any;
         }>({
-            colorLocation: ColorLocation.Inside,
+            colorLocation: ColorLocation.Outside,
             underground: [],
             opacityKnowledge: "",
             hue: HueColor.Blue,
@@ -160,7 +160,7 @@ export default {
                     openModal(modalMessageText.somethingWentWrongTitle, modalMessageText.somethingWentWrongMessage, false);
                     setTimeout(() => {
                         router.go(0);
-                    }, 3000);
+                    }, 2000);
                 };
                 isLoading.value = false;
             }
