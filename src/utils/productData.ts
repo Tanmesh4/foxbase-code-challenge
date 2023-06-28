@@ -6,11 +6,13 @@ import {
 } from "../data/queries";
 import { ref, watch } from "vue";
 import scoringUtils from "../utils/matrixCalculation";
+import type { IDisplayProduct } from "@/interface/dataTypings";
 
-export function useProductData() {
-  let product = ref([
+export const useProductData = () => {
+  const product = ref<IDisplayProduct[]>([
     {
       id: 0,
+      __typename: "Dislpayproducts",
       productName: "Vibrant Blue",
       shortDescription: "A bold and lively blue hue",
       benefits: "Enhances energy, stimulates creativity, and uplifts mood",
@@ -81,10 +83,25 @@ export function useProductData() {
     }
   );
 
+  watch(
+    [scoringMatrixError, latestColorChoiceError, recommendedProductError],
+    ([smError, lccError, rpError]) => {
+      if (smError) {
+        console.error("Error in scoring matrix:", smError);
+      }
+      if (lccError) {
+        console.error("Error in latest color choice:", lccError);
+      }
+      if (rpError) {
+        console.error("Error in recommended product:", rpError);
+      }
+    }
+  );
+
   return {
     product,
     scoringMatrixLoading,
     latestColorChoiceLoading,
     recommendedProductLoading,
   };
-}
+};

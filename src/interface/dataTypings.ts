@@ -25,3 +25,13 @@ export interface IReqDisplayProduct {
   id: number;
   scoringMatrix: Array<number>;
 }
+
+export interface IDisplayProduct {
+  __typename: string;
+  id: number;
+  scoringMatrix: Array<number>;
+  imageUrl: string;
+  productName: string;
+  shortDescription: string;
+  benefits: string;
+}
