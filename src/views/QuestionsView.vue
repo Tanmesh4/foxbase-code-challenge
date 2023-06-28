@@ -138,13 +138,15 @@ export default {
                 if (result) {
                     openModal(modalMessageText.dataSubmittedTitle, modalMessageText.dataSubmittedMessage, true);
                     setTimeout(() => {
+                        closeModal();
                         router.replace('/products');
-                    }, 2000);
+                    }, 1000);
                 } else {
                     openModal(modalMessageText.somethingWentWrongTitle, modalMessageText.somethingWentWrongMessage, false);
                     setTimeout(() => {
+                        closeModal();
                         router.go(0);
-                    }, 2000);
+                    }, 1000);
                 };
                 isLoading.value = false;
             }
