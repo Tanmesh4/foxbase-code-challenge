@@ -69,6 +69,7 @@ export const useProductData = () => {
             scoringUtils.getIdOfRecommendedProduct(product, scoringMatrixData)
           );
         recommendedProductId.value = productIds;
+        console.log("product id's : ", recommendedProductId.value);
       }
     }
   );
@@ -90,8 +91,10 @@ export const useProductData = () => {
   watch(
     [scoringMatrixError, latestColorChoiceError, recommendedProductError],
     ([smError, lccError, rpError]) => {
-      if (smError !== null || lccError !== null || rpError !== null) {
-        console.error("Error in scoring matrix:", smError);
+      if (rpError) {
+        router.go(0);
+      }
+      if (smError || lccError) {
         openModal(
           modalMessageText.somethingWentWrongTitle,
           modalMessageText.somethingWentWrongMessage,
