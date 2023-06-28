@@ -4,10 +4,11 @@
             <div class="modal-header">
                 <div class="title-icon">
                     <div v-if="isSuccess" class="success-icon">
-                        <font-awesome-icon icon="check" style="{ color: theme('colors.success') }" />
+                        <font-awesome-icon :icon="['fas', 'check']" beat-fade style="{ color: theme('colors.success') }" />
                     </div>
                     <div v-else class="warning-icon">
-                        <font-awesome-icon icon="exclamation-triangle" style="{ color: theme('colors.warning') }" />
+                        <font-awesome-icon :icon="['fas', 'triangle-exclamation']" shake
+                            style="{ color: theme('colors.warning') }" />
                     </div>
                 </div>
                 <h2>{{ title }}</h2>

@@ -28,10 +28,11 @@ import Loading from '../components/Loading.vue';
 import DisplayCard from '../components/DisplayCard.vue';
 import { useProductData } from '../utils/productData';
 import { useRouter } from "vue-router";
-import { ref, watch } from 'vue';
+import { Ref, onMounted, ref, watch } from 'vue';
 import UIText from "../nls/UItext.json";
-import { showModalMessage, modalTitle, modalMessage, isModalSuccess } from "../utils/modalutils";
+import { showModalMessage, modalTitle, modalMessage, isModalSuccess, openModal, closeModal } from "../utils/modalutils";
 import ModalMessage from '../components/ModalMessage.vue';
+import modalMessageText from "../nls/modalMessageText.json";
 
 export default {
     components: {
@@ -52,6 +53,23 @@ export default {
             router.replace('/');
         }
 
+        const loadingTimeout: Ref<NodeJS.Timeout | null> = ref(null);
+
+        onMounted(() => {
+            // Start the loading timeout
+            loadingTimeout.value = setTimeout(() => {
+                openModal(
+                    modalMessageText.connectToTheDatabase,
+                    modalMessageText.somethingWentWrongMessage,
+                    false
+                );
+                setTimeout(() => {
+                    closeModal();
+                    router.replace("/");
+                }, 2000);
+            }, 5000);
+        });
+
         watch(
             () => [
                 productData.recommendedProductLoading.value,
@@ -60,6 +78,9 @@ export default {
             ],
             () => {
                 loading.value = productData.recommendedProductLoading.value || productData.latestColorChoiceLoading.value || productData.recommendedProductLoading.value;
+                if (!loading.value) {
+                    clearTimeout(loadingTimeout.value as unknown as number);
+                }
             }
         );
 

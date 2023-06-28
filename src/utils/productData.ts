@@ -91,12 +91,15 @@ export const useProductData = () => {
   watch(
     [scoringMatrixError, latestColorChoiceError, recommendedProductError],
     ([smError, lccError, rpError]) => {
-      if (rpError) {
+      if (
+        rpError?.name === "ApolloError" &&
+        rpError?.graphQLErrors?.[0]?.path?.[0] === "getSpecificProducts"
+      ) {
         router.go(0);
       }
       if (smError || lccError) {
         openModal(
-          modalMessageText.somethingWentWrongTitle,
+          modalMessageText.connectToTheDatabase,
           modalMessageText.somethingWentWrongMessage,
           false
         );
