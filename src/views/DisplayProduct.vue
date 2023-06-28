@@ -4,7 +4,7 @@
             <Loading />
         </div>
         <div v-else>
-            <h1 class="text-3xl font-bold px-4 pt-4 mb-4">Recommended Product</h1>
+            <h1 class="text-3xl font-bold px-4 pt-4 mb-4">{{ title }}</h1>
             <template v-if="product && product.length > 0">
                 <div class="flex flex-wrap">
                     <DisplayCard v-for="(item, index) in product" :key="item.id" :product="item"
@@ -14,7 +14,7 @@
             </template>
             <div class="mt-4">
                 <button @click="redirectToHome" class="bg-primary text-white py-2 px-4 rounded hover:bg-hover">
-                    Go to Home
+                    {{ homeButton }}
                 </button>
             </div>
         </div>
@@ -27,6 +27,7 @@ import DisplayCard from '../components/DisplayCard.vue';
 import { useProductData } from '../utils/productData';
 import { useRouter } from "vue-router";
 import { ref, watch } from 'vue';
+import UIText from "../nls/UItext.json";
 
 export default {
     components: {
@@ -39,6 +40,8 @@ export default {
         const loading = ref(productData.recommendedProductLoading.value || productData.latestColorChoiceLoading.value || productData.recommendedProductLoading.value);
         const product = ref(productData.product.value);
         const router = useRouter();
+        const title = UIText.displayproductTitle;
+        const homeButton = UIText.displayproductHomeButtonText;
 
         const redirectToHome = () => {
             router.replace('/');
@@ -62,6 +65,8 @@ export default {
         return {
             product,
             loading,
+            title,
+            homeButton,
 
             redirectToHome,
         };

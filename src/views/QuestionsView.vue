@@ -34,11 +34,11 @@
                 <button type="button"
                     :class="['mt-6 mr-2 px-4 py-2 rounded bg-white-500 text-black hover:bg-hover border border-primary hover:text-white', { 'border-secondary cursor-not-allowed opacity-50': currentPageIndex === 0 }]"
                     :disabled="currentPageIndex === 0" @click="goBack">
-                    Back
+                    {{ backButton }}
                 </button>
                 <button type="submit" :disabled="isNextButtonDisabled"
                     :class="['mt-6 px-4 py-2 rounded', isNextButtonDisabled ? 'bg-secondary text-black opacity-50 cursor-not-allowed' : 'bg-primary text-white hover:bg-hover']">
-                    {{ isLastQuestion ? 'Get Recommendation' : 'Next' }}
+                    {{ isLastQuestion ? getRecommendationButton : nextButton }}
                 </button>
             </form>
         </div>
@@ -59,6 +59,7 @@ import Loading from '../components/Loading.vue';
 import ModalMessage from "../components/ModalMessage.vue";
 import modalMessageText from "../nls/modalMessageText.json";
 import { ColorLocation, Underground, Palette, HueColor } from "@prisma/client";
+import UIText from "../nls/UItext.json";
 
 export default {
     components: {
@@ -78,7 +79,11 @@ export default {
             return this.currentPageIndex === pages.length - 1;
         },
     },
+
     setup() {
+        const backButton = UIText.questionsBackButtonText;
+        const getRecommendationButton = UIText.questionsGetRecommendationButtonText;
+        const nextButton = UIText.questionsNextButtonText;
 
         const addFormDataQuery = useMutation(addFormData);
 
@@ -180,6 +185,10 @@ export default {
             modalTitle,
             modalMessage,
             isModalSuccess,
+            backButton,
+            getRecommendationButton,
+            nextButton,
+
 
             openModal,
             closeModal,
