@@ -90,7 +90,7 @@ export const useProductData = () => {
   watch(
     [scoringMatrixError, latestColorChoiceError, recommendedProductError],
     ([smError, lccError, rpError]) => {
-      if (smError || lccError || rpError) {
+      if (smError !== null || lccError !== null || rpError !== null) {
         console.error("Error in scoring matrix:", smError);
         openModal(
           modalMessageText.somethingWentWrongTitle,
