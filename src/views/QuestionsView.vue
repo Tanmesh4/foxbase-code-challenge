@@ -61,6 +61,7 @@ import modalMessageText from "../nls/modalMessageText.json";
 import { ColorLocation, Underground, Palette, HueColor } from "@prisma/client";
 import UIText from "../nls/UItext.json";
 import { showModalMessage, modalTitle, modalMessage, isModalSuccess, openModal, closeModal } from "../utils/modalutils";
+import { ICreateFormData } from "../interface/dataTypings";
 
 
 export default {
@@ -89,19 +90,11 @@ export default {
 
         const addFormDataQuery = useMutation(addFormData);
 
-        const formData = ref<{
-            colorLocation: ColorLocation;
-            underground: Underground[];
-            opacityKnowledge: boolean | string;
-            hue: HueColor;
-            opacityStrength: string | null;
-            palette: Palette | null;
-            [key: string]: any;
-        }>({
-            colorLocation: ColorLocation.Outside,
+        const formData = ref<ICreateFormData>({
+            colorLocation: "Outside",
             underground: [],
             opacityKnowledge: "",
-            hue: HueColor.Blue,
+            hue: "Red",
             opacityStrength: null,
             palette: null
         });
