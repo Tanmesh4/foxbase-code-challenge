@@ -60,6 +60,8 @@ import ModalMessage from "../components/ModalMessage.vue";
 import modalMessageText from "../nls/modalMessageText.json";
 import { ColorLocation, Underground, Palette, HueColor } from "@prisma/client";
 import UIText from "../nls/UItext.json";
+import { showModalMessage, modalTitle, modalMessage, isModalSuccess, openModal, closeModal } from "../utils/modalutils";
+
 
 export default {
     components: {
@@ -86,11 +88,6 @@ export default {
         const nextButton = UIText.questionsNextButtonText;
 
         const addFormDataQuery = useMutation(addFormData);
-
-        const showModalMessage = ref(false);
-        const modalTitle = ref('');
-        const modalMessage = ref('');
-        const isModalSuccess = ref(false);
 
         const formData = ref<{
             colorLocation: ColorLocation;
@@ -134,17 +131,6 @@ export default {
             });
         });
 
-        const openModal = (title: string, message: string, isSuccess: boolean) => {
-            modalTitle.value = title;
-            modalMessage.value = message;
-            showModalMessage.value = true;
-            isModalSuccess.value = isSuccess;
-        };
-
-        const closeModal = () => {
-            showModalMessage.value = false;
-        };
-
         const submitForm = async () => {
             console.log("Data is:", formData.value);
             const nextPageId = fromutils.getNextPageId(currentPage.value, formData.value);
@@ -163,9 +149,9 @@ export default {
                     }, 2000);
                 } else {
                     openModal(modalMessageText.somethingWentWrongTitle, modalMessageText.somethingWentWrongMessage, false);
-                    // setTimeout(() => {
-                    //     router.go(0);
-                    // }, 2000);
+                    setTimeout(() => {
+                        router.go(0);
+                    }, 2000);
                 };
                 isLoading.value = false;
             }

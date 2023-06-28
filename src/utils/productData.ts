@@ -7,8 +7,12 @@ import {
 import { ref, watch } from "vue";
 import scoringUtils from "../utils/matrixCalculation";
 import type { IDisplayProduct } from "@/interface/dataTypings";
+import { openModal, closeModal } from "../utils/modalutils";
+import modalMessageText from "../nls/modalMessageText.json";
+import { useRouter } from "vue-router";
 
 export const useProductData = () => {
+  const router = useRouter();
   const product = ref<IDisplayProduct[]>([
     {
       id: 0,
@@ -86,14 +90,17 @@ export const useProductData = () => {
   watch(
     [scoringMatrixError, latestColorChoiceError, recommendedProductError],
     ([smError, lccError, rpError]) => {
-      if (smError) {
+      if (smError || lccError || rpError) {
         console.error("Error in scoring matrix:", smError);
-      }
-      if (lccError) {
-        console.error("Error in latest color choice:", lccError);
-      }
-      if (rpError) {
-        console.error("Error in recommended product:", rpError);
+        openModal(
+          modalMessageText.somethingWentWrongTitle,
+          modalMessageText.somethingWentWrongMessage,
+          false
+        );
+        setTimeout(() => {
+          closeModal();
+          router.replace("/");
+        }, 2000);
       }
     }
   );

@@ -22,8 +22,6 @@ export const resolvers = {
       context: Context
     ) => {
       const { ids } = args;
-      console.log("id,s are: ", ids);
-
       const productDetails = ids.map((id) =>
         context.prisma.displayProducts.findUnique({ where: { id } })
       );

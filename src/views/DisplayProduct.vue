@@ -4,6 +4,8 @@
             <Loading />
         </div>
         <div v-else>
+            <ModalMessage :title="modalTitle" :message="modalMessage" v-if="showModalMessage"
+                :is-success="isModalSuccess" />
             <h1 class="text-3xl font-bold px-4 pt-4 mb-4">{{ title }}</h1>
             <template v-if="product && product.length > 0">
                 <div class="flex flex-wrap">
@@ -28,11 +30,14 @@ import { useProductData } from '../utils/productData';
 import { useRouter } from "vue-router";
 import { ref, watch } from 'vue';
 import UIText from "../nls/UItext.json";
+import { showModalMessage, modalTitle, modalMessage, isModalSuccess } from "../utils/modalutils";
+import ModalMessage from '../components/ModalMessage.vue';
 
 export default {
     components: {
         DisplayCard,
-        Loading
+        Loading,
+        ModalMessage
     },
 
     setup() {
@@ -67,6 +72,10 @@ export default {
             loading,
             title,
             homeButton,
+            showModalMessage,
+            modalTitle,
+            modalMessage,
+            isModalSuccess,
 
             redirectToHome,
         };
