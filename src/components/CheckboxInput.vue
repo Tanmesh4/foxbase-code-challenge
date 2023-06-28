@@ -89,4 +89,3 @@ export default {
     border-color: theme('colors.primary');
 }
 </style>
-  ../interface/dataTypings
