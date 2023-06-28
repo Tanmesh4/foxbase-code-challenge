@@ -5,11 +5,25 @@ import FooterBar from './components/FooterBar.vue';
 </script>
 
 <template>
-  <NavBar />
-  <main class="m-10 flex-grow">
-    <RouterView />
-  </main>
-  <FooterBar />
+  <div class="page-container">
+    <div class="content">
+      <NavBar />
+      <main class="m-10 flex-grow">
+        <RouterView />
+      </main>
+    </div>
+    <FooterBar />
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex-grow: 1;
+}
+</style>
