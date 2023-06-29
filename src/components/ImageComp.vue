@@ -1,7 +1,7 @@
 <template>
     <div class="image-card" @click="handleCardClick" :class="{ 'selected': isChecked }">
         <div v-if="requireImage">
-            <img :src="imageUrl" :alt="cardText" class="card-image" />
+            <ImageLoader :image-url="imageUrl" :alt-text="cardText" :handle-style="true" />
         </div>
         <div v-else-if="requireBlock">
             <div :style="{ backgroundColor: cardColor }" class="card-color"></div>
@@ -15,9 +15,13 @@
         </div>
     </div>
 </template>
-    
+
 <script lang="ts">
+import ImageLoader from './ImageLoader.vue';
 export default {
+    components: {
+        ImageLoader,
+    },
     props: {
         requireImage: {
             type: Boolean,
@@ -81,11 +85,6 @@ export default {
 
 .image-card.selected {
     border: 0.3rem solid theme('colors.primary');
-}
-
-.card-image {
-    width: 18rem;
-    height: 15rem;
 }
 
 .card-text {
