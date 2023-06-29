@@ -5,5 +5,7 @@
     "questionsBackButtonText": "Back",
     "questionsGetRecommendationButtonText": "Get Recommendation",
     "displayproductHomeButtonText": "Go to Home",
-    "displayproductTitle":"Recommended Product"
+    "displayproductTitle":"Recommended Product",
+    "displayproductTopRecommendation": "Top Recommendation",
+    "questionsWarningMessage": "Please select an option to continue!"
 }

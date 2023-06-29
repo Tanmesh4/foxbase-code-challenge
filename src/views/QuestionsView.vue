@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div v-show="isNextButtonDisabled">
-                    <h2 class="text-warning mt-10">Please select an option to continue!</h2>
+                    <h2 class="text-warning mt-10">{{ warningMessage }}</h2>
                 </div>
                 <button type="button"
                     :class="['mt-6 mr-2 px-4 py-2 rounded bg-white-500 text-black hover:bg-hover border border-primary hover:text-white', { 'border-secondary cursor-not-allowed opacity-50': currentPageIndex === 0 }]"
@@ -58,7 +58,6 @@ import { addFormData } from '../data/queries';
 import Loading from '../components/Loading.vue';
 import ModalMessage from "../components/ModalMessage.vue";
 import modalMessageText from "../nls/modalMessageText.json";
-import { ColorLocation, Underground, Palette, HueColor } from "@prisma/client";
 import UIText from "../nls/UItext.json";
 import { showModalMessage, modalTitle, modalMessage, isModalSuccess, openModal, closeModal } from "../utils/modalutils";
 import { ICreateFormData } from "../interface/dataTypings";
@@ -87,6 +86,7 @@ export default {
         const backButton = UIText.questionsBackButtonText;
         const getRecommendationButton = UIText.questionsGetRecommendationButtonText;
         const nextButton = UIText.questionsNextButtonText;
+        const warningMessage = UIText.questionsWarningMessage;
 
         const addFormDataQuery = useMutation(addFormData);
 
@@ -169,7 +169,7 @@ export default {
             backButton,
             getRecommendationButton,
             nextButton,
-
+            warningMessage,
 
             openModal,
             closeModal,
