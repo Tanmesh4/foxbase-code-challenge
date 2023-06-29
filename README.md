@@ -77,6 +77,12 @@ Here, the website will be up.
 ### Open another tab and go to: http://localhost:4007
 Here, the Yoga GraphQL playground will be running
 
+## Test Cases
+To run the test cases, open another terminal and run
+```sh
+npm test
+```
+
 
 ## Technology stack
 Technology stack:
