@@ -17,7 +17,7 @@ async function main() {
 
   // const deleteUsers = await prisma.colorChoice.deleteMany({});
   // const deleteMy = await prisma.displayProducts.deleteMany({});
-  // console.log(`Data deleld.`, deleteUsers, deleteMy);
+  // console.log(`Data deleted.`, deleteUsers, deleteMy);
 
   console.log(`Seeding finished.`);
 }

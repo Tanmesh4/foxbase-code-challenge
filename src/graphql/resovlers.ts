@@ -1,5 +1,6 @@
 import { type Context } from "./context";
 import { ColorLocation, Underground, Palette, HueColor } from "@prisma/client";
+import { pages } from "../data/questions";
 
 export const resolvers = {
   Query: {
@@ -70,11 +71,17 @@ export const resolvers = {
           shortDescription: string;
           benefits: string;
           imageUrl: string;
-          scoringMatrix: [number];
+          scoringMatrix: number[];
         };
       },
       context: Context
     ) => {
+      const { scoringMatrix } = args.input;
+      if (scoringMatrix.length !== pages.length) {
+        throw new Error(
+          `scoringMatrix must have exactly ${pages.length} values`
+        );
+      }
       return context.prisma.displayProducts.create({
         data: {
           productName: args.input.productName,
