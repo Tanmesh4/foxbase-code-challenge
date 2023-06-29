@@ -6,7 +6,8 @@
         <nav class="bg-primary py-4">
             <div class="container mx-auto flex items-center justify-between px-4">
                 <router-link to="/" class="flex items-center">
-                    <img src="https://picsum.photos/50" alt="Logo" class="h-8 w-auto mr-2">
+                    <img src="../assets//rs-low-resolution-logo-color-on-transparent-background.png" alt="Logo"
+                        class="h-8 w-auto mr-2">
                     <h1 class="text-white text-lg font-semibold">{{ navTitle }}</h1>
                 </router-link>
                 <router-link to="/addProduct" class="text-white text-lg font-semibold ml-4 relative">
