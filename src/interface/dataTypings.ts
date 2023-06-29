@@ -35,3 +35,11 @@ export interface IDisplayProduct {
   shortDescription: string;
   benefits: string;
 }
+
+export interface ICreateDisplayProduct {
+  productName: string;
+  shortDescription: string;
+  benefits: string;
+  imageUrl: string;
+  scoringMatrix: number[];
+}

@@ -9,13 +9,12 @@ import FooterBar from './components/FooterBar.vue';
     <div class="content">
       <NavBar />
       <main class="m-10 flex-grow">
-        <RouterView />
+        <router-view />
       </main>
     </div>
     <FooterBar />
   </div>
 </template>
-
 <style scoped>
 .page-container {
   display: flex;
