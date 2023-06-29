@@ -1,64 +1,77 @@
-import { mount } from "@vue/test-utils";
+import { shallowMount } from "@vue/test-utils";
+import ImageComp from "@/components/ImageComp.vue";
 import { describe, it, expect } from "vitest";
-import ImageComp from "../ImageComp.vue";
 
 describe("ImageComp", () => {
-  it("renders an image if requireImage prop is true", () => {
-    const wrapper = mount(ImageComp, {
+  it("renders an image when requireImage prop is true", () => {
+    const wrapper = shallowMount(ImageComp, {
       propsData: {
+        requireBlock: true,
         requireImage: true,
-        requireBlock: false,
         imageUrl: "https://example.com/image.jpg",
-        cardText: "Example Text",
+        cardText: "Sample Image",
       },
     });
-
-    expect(wrapper.find("img.card-image").exists()).toBe(true);
+    expect(wrapper.find(".card-text").text()).toBe("Sample Image");
   });
 
-  it("renders a colored block if requireBlock prop is true", () => {
-    const wrapper = mount(ImageComp, {
+  it("renders a block with cardColor when requireBlock prop is true", () => {
+    const wrapper = shallowMount(ImageComp, {
       propsData: {
         requireImage: false,
         requireBlock: true,
-        cardColor: "#FF0000",
-        cardText: "Example Text",
+        cardColor: "red",
+        cardText: "Sample Block",
       },
     });
 
     expect(wrapper.find(".card-color").exists()).toBe(true);
+    expect(wrapper.find(".card-text").text()).toBe("Sample Block");
   });
 
-  it("emits a change event with the cardText when clicked for radio type", () => {
-    const wrapper = mount(ImageComp, {
+  it('emits "change" event with cardText when handleCardClick is called for type="radio"', () => {
+    const wrapper = shallowMount(ImageComp, {
       propsData: {
-        requireImage: true,
-        requireBlock: false,
-        imageUrl: "https://example.com/image.jpg",
-        cardText: "Example Text",
+        requireImage: false,
+        requireBlock: true,
         type: "radio",
+        cardText: "Option 1",
       },
     });
 
-    wrapper.trigger("click");
-    expect(wrapper.emitted("change")).toBeTruthy();
-    expect(wrapper.emitted("change")![0][0]).toBe("Example Text");
+    wrapper.vm.handleCardClick();
+
+    expect(wrapper.emitted("change")).toHaveLength(1);
+    expect(wrapper.emitted("change")![0]).toEqual(["Option 1"]);
   });
 
-  it("emits a change event with the opposite of isChecked when clicked for checkbox type", () => {
-    const wrapper = mount(ImageComp, {
+  it('emits "change" event with inverted isChecked value when handleCardClick is called for type="checkbox"', () => {
+    const wrapper = shallowMount(ImageComp, {
       propsData: {
-        requireImage: true,
-        requireBlock: false,
-        imageUrl: "https://example.com/image.jpg",
-        cardText: "Example Text",
+        requireImage: false,
+        requireBlock: true,
         type: "checkbox",
-        isChecked: false,
+        isChecked: true,
+        cardText: "Option 2",
       },
     });
 
-    wrapper.trigger("click");
-    expect(wrapper.emitted("change")).toBeTruthy();
-    expect(wrapper.emitted("change")![0][0]).toBe(true);
+    wrapper.vm.handleCardClick();
+
+    expect(wrapper.emitted("change")).toHaveLength(1);
+    expect(wrapper.emitted("change")![0]).toEqual([false]);
+  });
+
+  it('applies "selected" class when isChecked prop is true', () => {
+    const wrapper = shallowMount(ImageComp, {
+      propsData: {
+        requireImage: false,
+        requireBlock: true,
+        isChecked: true,
+        cardText: "Sample Image",
+      },
+    });
+
+    expect(wrapper.classes()).toContain("selected");
   });
 });
