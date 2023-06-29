@@ -1,5 +1,5 @@
 # FoxBase code challenge
-
+### for more info please go to wiki
 ## Project Setup
 Prerequisites: 
 1. Docker should be installed and running
@@ -76,3 +76,9 @@ The project is now finally setup
 Here, the website will be up.
 ### Open another tab and go to: http://localhost:4007
 Here, the Yoga GraphQL playground will be running
+
+
+## Technology stack
+Technology stack:
+![image](https://github.com/Tanmesh4/foxbase-code-challenge/assets/49235802/5c03d8c4-badd-4203-8065-91dc6364ed19)
+![Screenshot 2023-06-30 at 1 23 15 AM](https://github.com/Tanmesh4/foxbase-code-challenge/assets/49235802/1ab14958-81f9-441d-9921-6370fa1f5074)
