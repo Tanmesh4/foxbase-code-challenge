@@ -1,41 +1,55 @@
-import { shallowMount } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import NavBar from "@/components/NavBar.vue";
-import { describe, test, expect } from "vitest";
+import { describe, it, expect, beforeEach } from "vitest";
+import router from "@/router";
 
 describe("NavBar", () => {
-  test("renders the component with a logo and title", () => {
-    // Mount the component
-    const wrapper = shallowMount(NavBar);
+  let mockRoute: { path: any };
 
-    // Assert that the component is rendered without errors
-    expect(wrapper.exists()).toBe(true);
-
-    // Assert the presence of the logo
-    const logo = wrapper.find("img");
-    expect(logo.exists()).toBe(true);
-    expect(logo.attributes("src")).toBe("https://picsum.photos/50");
-    expect(logo.attributes("alt")).toBe("Logo");
-
-    // Assert the presence of the title
-    const title = wrapper.find("h1");
-    expect(title.exists()).toBe(true);
-    expect(title.text()).toBe("Recommendation Specialists");
-    expect(title.classes()).toContain("text-white");
-    expect(title.classes()).toContain("text-lg");
-    expect(title.classes()).toContain("font-semibold");
+  beforeEach(() => {
+    mockRoute = {
+      path: "",
+    };
   });
 
-  test("renders the component with a fixed navigation bar", () => {
-    // Mount the component
-    const wrapper = shallowMount(NavBar);
+  it("renders the correct nav title", () => {
+    const wrapper = mount(NavBar, {
+      global: {
+        mocks: {
+          $route: mockRoute,
+        },
+      },
+    });
+    expect(wrapper.find("h1").text()).toBe("Recommendation Specialists");
+  });
 
-    // Assert that the component is rendered without errors
-    expect(wrapper.exists()).toBe(true);
+  it('displays "Add Products" link with underline when on /addProduct route', async () => {
+    mockRoute.path = "/addProduct";
 
-    // Assert the presence of the navigation bar
-    const nav = wrapper.find("nav");
-    expect(nav.exists()).toBe(true);
-    expect(nav.classes()).toContain("bg-primary");
-    expect(nav.classes()).toContain("py-4");
+    const wrapper = mount(NavBar, {
+      global: {
+        plugins: [router],
+        mocks: {
+          $route: mockRoute,
+        },
+      },
+    });
+
+    expect(wrapper.find(".underline").exists()).toBe(true);
+  });
+
+  it('does not display underline on "Add Products" link when not on /addProduct route', async () => {
+    mockRoute.path = "/";
+
+    const wrapper = mount(NavBar, {
+      global: {
+        mocks: {
+          $route: mockRoute,
+        },
+        stubs: ["router-link"],
+      },
+    });
+
+    expect(wrapper.find(".underline").exists()).toBe(false);
   });
 });
