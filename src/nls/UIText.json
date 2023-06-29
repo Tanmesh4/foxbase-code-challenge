@@ -1,6 +1,7 @@
 {
     "logoTitle": "RS",
     "navBarTitle": "Recommendation Specialists",
+    "navAddProduct":"Add Products",
     "questionsNextButtonText": "Next",
     "questionsBackButtonText": "Back",
     "questionsGetRecommendationButtonText": "Get Recommendation",

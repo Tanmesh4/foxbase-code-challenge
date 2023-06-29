@@ -49,3 +49,15 @@ export const getProducts = gql`
     }
   }
 `;
+
+export const addNewProduct = gql`
+  mutation CreateDisplayProduct($input: CreateDisplayProduct!) {
+    CreateDisplayProduct(input: $input) {
+      productName
+      shortDescription
+      benefits
+      imageUrl
+      scoringMatrix
+    }
+  }
+`;
