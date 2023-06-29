@@ -6,7 +6,7 @@ Prerequisites:
 2. Node should be installed
 
 Clone or download the project.
-Open the terminal of your choice and to this project path directory.
+Open the terminal of your choice and navigate to this project path directory.
 
 ### Step 1:
 Run:
@@ -22,9 +22,9 @@ Run the command:
 ```sh
 docker compose up
 ```
-you should see the message: database system is ready to accept connections
+You should see the message: database system is ready to accept connections
 
-If you don't see the message then run commands:
+If you don't see the message, then run the commands:
 1. rm -rf docker-data
 2. docker compose down
 
@@ -62,7 +62,7 @@ npm start
 you should see the message: 🚀 Server ready at: http://localhost:4007
 
 ### Step 4
-Now go back to the first terminal where we ran npm install
+Now go back to the first terminal where we ran the npm install
 and Run the command:
 ```sh
 npm run dev
