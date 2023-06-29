@@ -78,7 +78,7 @@ export default {
 
         const isImageValid = ref(true);
         const isScoringMatrixValid = computed(() => {
-            const matrixRegex = /^(\d+(\.\d+)?,){5}\d+(\.\d+)?$/;
+            const matrixRegex = /^((0\.\d+)|(1(\.0+)?))(,(0\.\d+)|(1(\.0+)?)){5}$/;
             return matrixRegex.test(scoringMatrix.value);
         });
 
