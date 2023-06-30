@@ -60,7 +60,7 @@ import ModalMessage from "../components/ModalMessage.vue";
 import modalMessageText from "../nls/modalMessageText.json";
 import UIText from "../nls/UItext.json";
 import { showModalMessage, modalTitle, modalMessage, isModalSuccess, openModal, closeModal } from "../utils/modalutils";
-import { ICreateFormData } from "../interface/dataTypings";
+import { type ICreateFormData } from "../interface/dataTypings";
 
 
 export default {

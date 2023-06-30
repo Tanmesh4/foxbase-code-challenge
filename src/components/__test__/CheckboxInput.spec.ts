@@ -82,9 +82,11 @@ describe("CheckboxInput", () => {
     });
 
     const checkboxOptions = wrapper.findAll('input[type="checkbox"]');
-    expect(checkboxOptions[0].element.checked).toBe(true);
-    expect(checkboxOptions[1].element.checked).toBe(true);
-    expect(checkboxOptions[2].element.checked).toBe(false);
+    expect((checkboxOptions[0].element as HTMLInputElement).checked).toBe(true);
+    expect((checkboxOptions[1].element as HTMLInputElement).checked).toBe(true);
+    expect((checkboxOptions[2].element as HTMLInputElement).checked).toBe(
+      false
+    );
   });
 
   it("updates `formData` when an image option is checked/unchecked", async () => {
@@ -116,15 +118,15 @@ describe("CheckboxInput", () => {
     });
 
     const checkboxOptions = wrapper.findAll('input[type="checkbox"]');
-    await checkboxOptions[0].setChecked(true);
+    await checkboxOptions[0].setValue(true);
     expect(wrapper.vm.formData.myInput).toContain(inputWithoutImage.options[0]);
 
-    await checkboxOptions[1].setChecked(false);
+    await checkboxOptions[1].setValue(false);
     expect(wrapper.vm.formData.myInput).not.toContain(
       inputWithoutImage.options[1]
     );
 
-    await checkboxOptions[2].setChecked(true);
+    await checkboxOptions[2].setValue(true);
     expect(wrapper.vm.formData.myInput).toContain(inputWithoutImage.options[2]);
   });
 });

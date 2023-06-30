@@ -31,7 +31,7 @@ import Loading from '../components/Loading.vue';
 import DisplayCard from '../components/DisplayCard.vue';
 import { useProductData } from '../utils/productData';
 import { useRouter } from "vue-router";
-import { Ref, onMounted, ref, watch } from 'vue';
+import { type Ref, onMounted, ref, watch } from 'vue';
 import UIText from "../nls/UItext.json";
 import { showModalMessage, modalTitle, modalMessage, isModalSuccess, openModal, closeModal } from "../utils/modalutils";
 import ModalMessage from '../components/ModalMessage.vue';
