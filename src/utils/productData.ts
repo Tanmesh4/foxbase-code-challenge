@@ -69,7 +69,6 @@ export const useProductData = () => {
             scoringUtils.getIdOfRecommendedProduct(product, scoringMatrixData)
           );
         recommendedProductId.value = productIds;
-        console.log("product id's : ", recommendedProductId.value);
       }
     }
   );

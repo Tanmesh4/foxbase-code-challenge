@@ -125,7 +125,6 @@ export default {
         });
 
         const submitForm = async () => {
-            console.log("Data is:", formData.value);
             const nextPageId = fromutils.getNextPageId(currentPage.value, formData.value);
             if (nextPageId) {
                 currentPageIndex.value = fromutils.getPageIndex(nextPageId);

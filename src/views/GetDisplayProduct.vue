@@ -106,7 +106,6 @@ export default {
             if (result) {
                 openModal(modalMessageText.dataSubmittedTitle, modalMessageText.dataSubmittedMessage, true);
                 setTimeout(() => {
-                    console.log("added: ", productData, result);
                     closeModal();
                     router.replace('/');
                 }, 1000);
@@ -114,7 +113,6 @@ export default {
                 openModal(modalMessageText.somethingWentWrongTitle, modalMessageText.somethingWentWrongMessage, false);
                 setTimeout(() => {
                     closeModal();
-                    console.log("not added: ", productData, result);
                     router.go(0);
                 }, 2000);
             }
